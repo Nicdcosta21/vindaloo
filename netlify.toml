@@ -1,3 +1,13 @@
-[build]
-  functions = "netlify/functions"
-  publish   = "."
+# A basic redirect for the owner portal
+[[redirects]]
+  from = "https://pos.vindaloo.nikagenyx.com/*"
+  to = "/admin.html"
+  status = 200
+  force = true
+
+# A redirect to expose API functions via the API subdomain
+[[redirects]]
+  from = "https://api.vindaloo.nikagenyx.com/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
