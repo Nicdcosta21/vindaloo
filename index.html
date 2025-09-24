@@ -221,7 +221,19 @@
         <p class="text-gray-700 mt-2">Vindaloo Restaurant, Your Street, Your City</p>
         <p class="text-gray-600 text-sm">Open daily: 12:00–15:30, 18:30–22:30</p>
         <div class="mt-5 flex flex-wrap gap-3">
-          <a href="https://maps.google.com/?q=Vindaloo%20Restaurant" target="_blank" class="border px-4 py-2 rounded-md">Open in Maps</a>
+          <a href="https://www.google.com/maps/place/Vindaloo+Restaurant/@9.9123073,76.2692592,1086m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3b086d25130d5567:0xe6c0bd121d726f2c!8m2!3d9.9123073!4d76.2692592!16s%2Fg%2F11zhvx_znz?entry=ttu"
+   target="_blank" rel="noopener" class="border px-4 py-2 rounded-md">
+  Open in Maps
+</a>
+          <div class="mt-6">
+  <iframe
+    title="Vindaloo Restaurant Map"
+    src="https://www.google.com/maps?q=9.9123073,76.2692592&z=16&output=embed"
+    width="100%" height="320" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+
           <a href="tel:+918999338456" class="bg-black text-white px-4 py-2 rounded-md">Call</a>
           <a id="wa-shortcut" href="#order" class="bg-wine text-white px-4 py-2 rounded-md">WhatsApp</a>
         </div>
@@ -251,20 +263,31 @@
 
   <!-- Structured data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Vindaloo Restaurant",
-    "servesCuisine": ["Kerala Traditional"],
-    "telephone": "+918999338456",
-    "address": {"@type":"PostalAddress","streetAddress":"Your Street","addressLocality":"Your City","addressRegion":"Your State","postalCode":"000000","addressCountry":"IN"},
-    "openingHoursSpecification": [
-      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"12:00","closes":"22:30"}
-    ],
-    "paymentAccepted": ["Cash","UPI"],
-    "url": "https://vindaloo.nikagenyx.com"
-  }
-  </script>
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Vindaloo Restaurant",
+  "servesCuisine": ["Goan","Indian"],
+  "telephone": "+91XXXXXXXXXX",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Your Street",
+    "addressLocality": "Your City",
+    "addressRegion": "Your State",
+    "postalCode": "000000",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 9.9123073,
+    "longitude": 76.2692592
+  },
+  "hasMap": "https://www.google.com/maps/place/Vindaloo+Restaurant/@9.9123073,76.2692592,1086m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3b086d25130d5567:0xe6c0bd121d726f2c!8m2!3d9.9123073!4d76.2692592!16s%2Fg%2F11zhvx_znz?entry=ttu",
+  "paymentAccepted": ["Cash","UPI"],
+  "url": "https://vindaloo.nikagenyx.com"
+}
+</script>
+
 
   <script>
   // ====== Config ======
