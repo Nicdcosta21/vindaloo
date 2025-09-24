@@ -1,326 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vindaloo Owner Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root{ --wine:#5a352c; --ink:#1f2937; --leaf:#0e9f6e; }
-        body{ font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink); background:#fdfbf7; }
-        .admin-card{ background:#fff; border-radius:0.75rem; box-shadow:0 1px 3px rgba(0,0,0,0.08); padding:1rem; }
-        .btn{ padding:0.5rem 1rem; border-radius:0.5rem; font-weight:500; }
-        .btn-primary{ background:var(--wine); color:#fff; }
-        .btn-secondary{ background:#eee; color:var(--ink); }
-        .btn-danger{ background:#e3342f; color:#fff; }
-        .icon-sm{ width:1rem; height:1rem; }
-        .badge-available{ background:var(--leaf); color:#fff; }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vindaloo Owner Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --wine:#5a352c; --ink:#1f2937; --leaf:#0e9f6e; --paper:#fdfbf7; }
+    body{ font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink); background:var(--paper); }
+    .admin-card{ background:#fff; border-radius:0.75rem; box-shadow:0 1px 3px rgba(0,0,0,0.08); padding:1rem; }
+    .btn{ padding:0.5rem 1rem; border-radius:0.5rem; font-weight:500; }
+    .btn-primary{ background:var(--wine); color:#fff; }
+    .btn-secondary{ background:#eee; color:var(--ink); }
+    .btn-danger{ background:#e3342f; color:#fff; }
+    .bg-leaf{ background:var(--leaf); color:#fff; }
+    .badge{ font-size:.72rem; border:1px solid #e5e7eb; padding:.15rem .45rem; border-radius:.4rem }
+  </style>
 </head>
 <body class="min-h-screen">
 
-        <header class="bg-black/80 backdrop-blur sticky top-0 z-50 text-white">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/vindaloo-logo.png" alt="Vindaloo Logo" class="h-8 w-auto">
-                <span class="font-semibold tracking-wide hidden sm:block">VINDALOO ADMIN</span>
-            </div>
-            <button id="logout-btn" class="text-sm px-3 py-1.5 rounded-md font-medium hidden">Log out</button>
-        </div>
-    </header>
+  <!-- Header -->
+  <header class="bg-black/80 backdrop-blur sticky top-0 z-50 text-white">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/vindaloo-logo.png" alt="Vindaloo Logo" class="h-8 w-auto">
+        <span class="font-semibold tracking-wide hidden sm:block">VINDALOO ADMIN</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-new-cat" class="text-sm px-3 py-1.5 rounded-md font-medium hidden border">New category</button>
+        <button id="logout-btn" class="text-sm px-3 py-1.5 rounded-md font-medium hidden">Log out</button>
+      </div>
+    </div>
+  </header>
 
-        <main class="max-w-7xl mx-auto px-4 py-8">
+  <!-- Main -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
 
-                <div id="login-form" class="max-w-sm mx-auto my-24 admin-card">
-            <h2 class="text-xl font-semibold mb-4">Owner Portal Login</h2>
-            <p class="text-gray-600 text-sm mb-4">Enter your ADMIN_SECRET to access the dashboard.</p>
-            <input type="password" id="admin-secret-input" placeholder="Enter ADMIN_SECRET" class="w-full border rounded-md px-3 py-2 mb-4">
-            <button onclick="login()" class="btn btn-primary w-full">Login</button>
-        </div>
+    <!-- Login -->
+    <div id="login-form" class="max-w-sm mx-auto my-24 admin-card">
+      <h2 class="text-xl font-semibold mb-4">Owner Portal Login</h2>
+      <p class="text-gray-600 text-sm mb-4">Enter your <span class="font-mono">ADMIN_SECRET</span> to access the dashboard.</p>
+      <form id="login" class="space-y-3">
+        <input type="password" id="admin-secret-input" placeholder="Enter ADMIN_SECRET" class="w-full border rounded-md px-3 py-2" autocomplete="current-password" required>
+        <button class="btn btn-primary w-full">Login</button>
+      </form>
+    </div>
 
-                <div id="admin-content" class="hidden">
-            <h1 class="text-3xl font-bold mb-6">Menu Management</h1>
-            <div id="dashboard-status" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 hidden" role="alert">
-                <strong class="font-bold">Error!</strong>
-                <span class="block sm:inline" id="status-message"></span>
-            </div>
+    <!-- Status -->
+    <div id="dashboard-status" class="hidden px-4 py-3 rounded relative mb-4 admin-card" role="alert">
+      <strong id="status-title" class="font-bold"></strong>
+      <div id="status-message" class="block sm:inline"></div>
+    </div>
 
-                        <div id="menu-display" class="space-y-6"></div>
-        </div>
-    </main>
+    <!-- Admin content -->
+    <div id="admin-content" class="hidden">
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-3xl font-bold">Menu Management</h1>
+        <div class="text-sm">
+          <button id="btn-refresh" class="border px-3 py-1.5 rounded">Refresh</button>
+        </div>
+      </div>
+      <div id="menu-display" class="space-y-6"></div>
+    </div>
+  </main>
 
-        <div id="modal-container" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-50 flex items-center justify-center p-4">
-        <div class="admin-card w-full max-w-lg relative">
-            <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-2xl">&times;</button>
-            <h3 id="modal-title" class="text-xl font-bold mb-4"></h3>
-            <form id="item-form" class="space-y-3">
-                <input type="hidden" name="id">
-                <input type="hidden" name="image_url">
-                <div>
-                    <label class="block text-sm font-medium mb-1">Name</label>
-                    <input name="name" class="w-full border rounded-md px-3 py-2" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Description</label>
-                    <textarea name="description" class="w-full border rounded-md px-3 py-2"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Price (in ₹)</label>
-                    <input type="number" name="price_cents" class="w-full border rounded-md px-3 py-2" required>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Category</label>
-                        <select name="category_id" class="w-full border rounded-md px-3 py-2" required></select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Spice Level</label>
-                        <select name="spice_level" class="w-full border rounded-md px-3 py-2">
-                            <option value="0">None</option>
-                            <option value="1">Mild</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Hot</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="veg"> Vegetarian</label>
-                    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_special"> Special</label>
-                    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_available"> Available</label>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Image URL</label>
-                    <input type="file" id="image-upload" class="w-full border rounded-md px-3 py-2">
-                    <p class="text-xs text-gray-500 mt-1">Uploads to Cloudinary (needs config).</p>
-                </div>
-                <div class="flex justify-end gap-3 pt-2">
-                    <button type="button" onclick="closeModal()" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Item</button>
-                </div>
-            </form>
-        </div>
-    </div>
+  <!-- Modal -->
+  <div id="modal-container" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-50 flex items-center justify-center p-4">
+    <div class="admin-card w-full max-w-lg relative">
+      <button type="button" id="modal-close" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-2xl" aria-label="Close">&times;</button>
+      <h3 id="modal-title" class="text-xl font-bold mb-4"></h3>
+      <form id="item-form" class="space-y-3">
+        <input type="hidden" name="id">
+        <input type="hidden" name="image_url">
+        <div>
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input name="name" class="w-full border rounded-md px-3 py-2" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Description</label>
+          <textarea name="description" class="w-full border rounded-md px-3 py-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Price (in ₹)</label>
+          <input type="number" min="0" step="1" name="price_cents" class="w-full border rounded-md px-3 py-2" required>
+          <p class="text-xs text-gray-500 mt-1">Whole rupees only; we convert to paise automatically.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Category</label>
+            <select name="category_id" class="w-full border rounded-md px-3 py-2" required></select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Spice Level</label>
+            <select name="spice_level" class="w-full border rounded-md px-3 py-2">
+              <option value="0">None</option>
+              <option value="1">Mild</option>
+              <option value="2">Medium</option>
+              <option value="3">Hot</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="veg"> Vegetarian</label>
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_special"> Special</label>
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_available" checked> Available</label>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Image</label>
+          <input type="file" id="image-upload" accept="image/*" class="w-full border rounded-md px-3 py-2">
+          <p class="text-xs text-gray-500 mt-1">Uploads to Cloudinary if configured (see constants below).</p>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" class="btn btn-secondary" data-action="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    <script>
-        // --- Configuration & Utilities ---
-        const el = sel => document.querySelector(sel);
-        const API_BASE = 'https://api.vindaloo.nikagenyx.com/.netlify/functions'; // TODO: Update with your API domain
-        const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload'; // TODO: Replace YOUR_CLOUD_NAME
-        const CLOUDINARY_UPLOAD_PRESET = 'YOUR_UPLOAD_PRESET'; // TODO: Replace YOUR_UPLOAD_PRESET
+  <script>
+    // --- Configuration ---
+    const API_BASE = 'https://api.vindaloo.nikagenyx.com/.netlify/functions'; // your live API
+    // Optional: Cloudinary direct upload. If not set, we just skip uploads.
+    const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload';
+    const CLOUDINARY_UPLOAD_PRESET = 'YOUR_UPLOAD_PRESET';
 
-        let ADMIN_SECRET = '';
-        let ALL_CATEGORIES = [];
-        let ALL_ITEMS = [];
+    // --- Helpers ---
+    const el = s => document.querySelector(s);
+    const Rs = n => '₹' + (Number(n)/100).toFixed(0);
 
-        function showStatus(message, isError = false) {
-            const statusEl = el('#dashboard-status');
-            statusEl.classList.remove('hidden', 'bg-red-100', 'bg-green-100', 'border-red-400', 'border-green-400', 'text-red-700', 'text-green-700');
-            statusEl.classList.add(isError ? 'bg-red-100' : 'bg-green-100', isError ? 'border-red-400' : 'border-green-400', isError ? 'text-red-700' : 'text-green-700');
-            el('#status-message').textContent = message;
-            setTimeout(() => statusEl.classList.add('hidden'), 5000);
-        }
+    function toast(msg, ok=true, title= ok ? 'Success' : 'Error') {
+      const box = el('#dashboard-status');
+      const t = el('#status-title'), m = el('#status-message');
+      t.textContent = title + ': ';
+      m.textContent = msg;
+      box.classList.remove('hidden');
+      box.classList.toggle('bg-red-50', !ok);
+      box.classList.toggle('border-red-200', !ok);
+      box.classList.toggle('text-red-800', !ok);
+      box.classList.toggle('bg-green-50', ok);
+      box.classList.toggle('border-green-200', ok);
+      box.classList.toggle('text-green-800', ok);
+      setTimeout(() => box.classList.add('hidden'), 4000);
+    }
 
-        function checkAuth() {
-            ADMIN_SECRET = localStorage.getItem('ADMIN_SECRET');
-            if (ADMIN_SECRET) {
-                el('#login-form').classList.add('hidden');
-                el('#admin-content').classList.remove('hidden');
-                el('#logout-btn').classList.remove('hidden');
-                fetchMenu();
-            } else {
-                el('#login-form').classList.remove('hidden');
-                el('#admin-content').classList.add('hidden');
-                el('#logout-btn').classList.add('hidden');
-            }
-        }
+    function authHeader() {
+      const token = localStorage.getItem('ADMIN_SECRET') || '';
+      return token ? { 'Authorization': 'Bearer ' + token } : {};
+    }
 
-        function logout() {
-            localStorage.removeItem('ADMIN_SECRET');
-            checkAuth();
-        }
+    function needCloudinary() {
+      return CLOUDINARY_UPLOAD_URL.includes('YOUR_CLOUD_NAME') === false &&
+             CLOUDINARY_UPLOAD_PRESET !== 'YOUR_UPLOAD_PRESET';
+    }
 
-        function login() {
-            const secret = el('#admin-secret-input').value;
-            if (secret) {
-                localStorage.setItem('ADMIN_SECRET', secret);
-                checkAuth();
-            }
-        }
-        el('#logout-btn').addEventListener('click', logout);
-        checkAuth();
+    // --- State ---
+    let ALL_CATEGORIES = [];
+    let ALL_ITEMS = [];
 
+    // --- Auth flow ---
+    function setAuthedUI(on) {
+      el('#login-form').classList.toggle('hidden', on);
+      el('#admin-content').classList.toggle('hidden', !on);
+      el('#logout-btn').classList.toggle('hidden', !on);
+      el('#btn-new-cat').classList.toggle('hidden', !on);
+    }
 
-        // --- Menu Display Logic ---
-        async function fetchMenu() {
-            try {
-                const response = await fetch(`${API_BASE}/get_menu`, {
-                    headers: { 'Authorization': `Bearer ${ADMIN_SECRET}` }
-                });
-                if (!response.ok) throw new Error('Failed to fetch menu. Check your ADMIN_SECRET.');
-                const { categories } = await response.json();
-                ALL_CATEGORIES = categories;
-                ALL_ITEMS = categories.flatMap(c => c.items);
-                renderMenu();
-            } catch (error) {
-                showStatus(error.message, true);
-                console.error(error);
-            }
-        }
+    el('#login').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const secret = el('#admin-secret-input').value.trim();
+      if (!secret) return;
+      localStorage.setItem('ADMIN_SECRET', secret);
+      setAuthedUI(true);
+      fetchMenu();
+    });
 
-        function renderMenu() {
-            const menuDisplay = el('#menu-display');
-            menuDisplay.innerHTML = '';
+    el('#logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('ADMIN_SECRET');
+      setAuthedUI(false);
+      toast('Logged out', true);
+    });
 
-            ALL_CATEGORIES.forEach(cat => {
-                const categorySection = document.createElement('div');
-                categorySection.className = 'admin-card mb-6';
-                categorySection.innerHTML = `
-                    <h2 class="text-xl font-bold mb-4">${cat.name}</h2>
-                    <ul class="space-y-4">
-                        ${cat.items.map(item => `
-                            <li class="flex items-center justify-between p-3 border rounded-md">
-                                <div>
-                                    <div class="font-semibold">${item.name}</div>
-                                    <div class="text-sm text-gray-600">₹${(item.price_cents/100).toFixed(2)}</div>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <button onclick="toggleAvailability(${item.id}, ${item.is_available})" class="btn text-sm px-2 py-1 ${item.is_available ? 'bg-leaf text-white' : 'bg-gray-300 text-gray-700'}">
-                                        ${item.is_available ? 'Available' : 'Unavailable'}
-                                    </button>
-                                    <button onclick="editItem(${item.id})" class="btn btn-secondary text-sm">Edit</button>
-                                    <button onclick="deleteItem(${item.id})" class="btn btn-danger text-sm">Delete</button>
-                                </div>
-                            </li>
-                        `).join('')}
-                    </ul>
-                    <button onclick="openModal('add', { category_id: ${cat.id} })" class="btn btn-primary mt-4 text-sm w-full">Add Item to ${cat.name}</button>
-                `;
-                menuDisplay.appendChild(categorySection);
-            });
-        }
+    // Init
+    (function boot(){
+      const has = !!localStorage.getItem('ADMIN_SECRET');
+      setAuthedUI(has);
+      if (has) fetchMenu();
+    })();
 
-        // --- Modal & Form Logic ---
-        function openModal(mode, data = {}) {
-            el('#modal-container').classList.remove('hidden');
-            el('#modal-title').textContent = mode === 'add' ? 'Add New Item' : 'Edit Item';
-            el('#item-form').reset();
-            el('input[name="id"]').value = data.id || '';
-            el('input[name="image_url"]').value = data.image_url || '';
+    // --- Fetch menu (admin uses the same read endpoint) ---
+    async function fetchMenu() {
+      try {
+        const r = await fetch(`${API_BASE}/get_menu`, { headers: { ...authHeader() } });
+        if (!r.ok) throw new Error(`Fetch failed (${r.status}) — check ADMIN_SECRET and CORS.`);
+        const { categories } = await r.json();
+        ALL_CATEGORIES = categories || [];
+        ALL_ITEMS = ALL_CATEGORIES.flatMap(c => c.items || []);
+        renderMenu();
+        toast('Menu loaded', true);
+      } catch (err) {
+        console.error(err);
+        toast(err.message || 'Failed to fetch menu', false);
+      }
+    }
 
-            // Populate form for editing
-            if (mode === 'edit') {
-                el('input[name="name"]').value = data.name;
-                el('textarea[name="description"]').value = data.description || '';
-                el('input[name="price_cents"]').value = data.price_cents / 100;
-                el('input[name="veg"]').checked = data.veg;
-                el('input[name="is_special"]').checked = data.is_special;
-                el('input[name="is_available"]').checked = data.is_available;
-                el('select[name="spice_level"]').value = data.spice_level || '0';
-            }
+    // --- Render ---
+    function renderMenu() {
+      const wrap = el('#menu-display');
+      wrap.innerHTML = '';
+      if (!ALL_CATEGORIES.length) {
+        wrap.innerHTML = '<div class="admin-card text-sm text-gray-600">No categories yet. Use “New category” to add one.</div>';
+        return;
+      }
+      ALL_CATEGORIES.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'admin-card';
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold">${cat.name}</h2>
+            <div class="flex items-center gap-2 text-sm">
+              <button data-rename="${cat.id}" class="border px-3 py-1.5 rounded">Rename</button>
+              <button data-add-item="${cat.id}" class="btn btn-primary">Add Item</button>
+            </div>
+          </div>
+          <ul class="mt-4 space-y-3">
+            ${(cat.items||[]).map(item => `
+              <li class="flex items-center justify-between p-3 border rounded-md">
+                <div>
+                  <div class="font-semibold">${item.name}</div>
+                  <div class="text-sm text-gray-600">${Rs(item.price_cents)} · <span class="badge">Spice ${item.spice_level||0}</span> ${item.veg ? '· <span class="badge">Veg</span>' : ''} ${item.is_special ? '· <span class="badge">Special</span>' : ''}</div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button data-toggle="${item.id}" class="btn text-sm px-2 py-1 ${item.is_available ? 'bg-leaf' : 'btn-secondary'}">
+                    ${item.is_available ? 'Available' : 'Unavailable'}
+                  </button>
+                  <button data-edit="${item.id}" class="btn btn-secondary text-sm">Edit</button>
+                  <button data-delete="${item.id}" class="btn btn-danger text-sm">Delete</button>
+                </div>
+              </li>
+            `).join('')}
+          </ul>
+        `;
+        wrap.appendChild(card);
+      });
 
-            // Populate category dropdown
-            const categorySelect = el('select[name="category_id"]');
-            categorySelect.innerHTML = ALL_CATEGORIES.map(c => 
-                `<option value="${c.id}" ${c.id === data.category_id ? 'selected' : ''}>${c.name}</option>`
-            ).join('');
-        }
+      // wire buttons
+      wrap.querySelectorAll('[data-rename]').forEach(b => b.addEventListener('click', () => renameCategory(Number(b.dataset.rename))));
+      wrap.querySelectorAll('[data-add-item]').forEach(b => b.addEventListener('click', () => openModal('add', { category_id: Number(b.dataset.addItem) })));
+      wrap.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => editItem(Number(b.dataset.edit))));
+      wrap.querySelectorAll('[data-delete]').forEach(b => b.addEventListener('click', () => deleteItem(Number(b.dataset.delete))));
+      wrap.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', () => toggleAvailability(Number(b.dataset.toggle))));
+    }
 
-        function closeModal() {
-            el('#modal-container').classList.add('hidden');
-        }
+    // --- Category actions ---
+    el('#btn-new-cat').addEventListener('click', async () => {
+      const name = prompt('Category name?');
+      if (!name) return;
+      const sort = Number(prompt('Sort order? (lower shows first)', '100')) || 100;
+      try {
+        const r = await fetch(`${API_BASE}/admin_upsert_category`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...authHeader() },
+          body: JSON.stringify({ name, sort_order: sort })
+        });
+        if (!r.ok) throw new Error('Create category failed');
+        toast('Category created');
+        fetchMenu();
+      } catch (e) {
+        toast(e.message, false);
+      }
+    });
 
-        function editItem(id) {
-            const item = ALL_ITEMS.find(i => i.id === id);
-            if (item) openModal('edit', item);
-        }
+    async function renameCategory(id) {
+      const cat = ALL_CATEGORIES.find(c => c.id === id);
+      if (!cat) return;
+      const name = prompt('New category name:', cat.name);
+      if (!name) return;
+      const sort = Number(prompt('Sort order?', String(cat.sort_order||100))) || (cat.sort_order||100);
+      try {
+        const r = await fetch(`${API_BASE}/admin_upsert_category`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...authHeader() },
+          body: JSON.stringify({ id, name, sort_order: sort })
+        });
+        if (!r.ok) throw new Error('Rename failed');
+        toast('Category updated');
+        fetchMenu();
+      } catch (e) {
+        toast(e.message, false);
+      }
+    }
 
-        async function toggleAvailability(id, currentStatus) {
-            const item = ALL_ITEMS.find(i => i.id === id);
-            if (!item) return;
+    // --- Item modal ---
+    const dlg = el('#modal-container');
+    const form = el('#item-form');
 
-            try {
-                const response = await fetch(`${API_BASE}/admin_upsert_item`, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${ADMIN_SECRET}`
-                    },
-                    body: JSON.stringify({ ...item, is_available: !currentStatus })
-                });
-                if (!response.ok) throw new Error('Failed to toggle availability.');
-                showStatus('Item availability updated successfully.');
-                fetchMenu();
-            } catch (error) {
-                showStatus(error.message, true);
-            }
-        }
+    function openModal(mode, data = {}) {
+      el('#modal-title').textContent = mode === 'add' ? 'Add New Item' : 'Edit Item';
+      form.reset();
+      form.elements.id.value = data.id || '';
+      form.elements.image_url.value = data.image_url || '';
+      form.elements.name.value = data.name || '';
+      form.elements.description.value = data.description || '';
+      form.elements.price_cents.value = data.price_cents ? Math.round(Number(data.price_cents)/100) : '';
+      form.elements.veg.checked = !!data.veg;
+      form.elements.is_special.checked = !!data.is_special;
+      form.elements.is_available.checked = data.is_available !== undefined ? !!data.is_available : true;
+      form.elements.spice_level.value = String(data.spice_level ?? 0);
 
-        async function deleteItem(id) {
-            if (!confirm('Are you sure you want to delete this item?')) return;
-            try {
-                const response = await fetch(`${API_BASE}/admin_delete_item?id=${id}`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${ADMIN_SECRET}` }
-                });
-                if (!response.ok) throw new Error('Failed to delete item.');
-                showStatus('Item deleted successfully.');
-                fetchMenu();
-            } catch (error) {
-                showStatus(error.message, true);
-            }
-        }
+      // category dropdown
+      const sel = form.elements.category_id;
+      sel.innerHTML = ALL_CATEGORIES.map(c => `<option value="${c.id}" ${c.id === data.category_id ? 'selected':''}>${c.name}</option>`).join('');
 
-        el('#item-form').addEventListener('submit', async e => {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-            const data = {
-                id: formData.get('id') ? Number(formData.get('id')) : null,
-                category_id: Number(formData.get('category_id')),
-                name: formData.get('name'),
-                description: formData.get('description'),
-                price_cents: Number(formData.get('price_cents')) * 100,
-                veg: formData.get('veg') === 'on',
-                spice_level: Number(formData.get('spice_level')),
-                is_available: formData.get('is_available') === 'on',
-                is_special: formData.get('is_special') === 'on',
-                image_url: formData.get('image_url')
-            };
+      dlg.classList.remove('hidden');
+      form.dataset.mode = mode;
+    }
+    function closeModal(){ dlg.classList.add('hidden'); }
+    el('#modal-close').addEventListener('click', closeModal);
+    form.querySelector('[data-action="cancel"]').addEventListener('click', closeModal);
+    window.addEventListener('keydown', e => { if (e.key === 'Escape' && !dlg.classList.contains('hidden')) closeModal(); });
 
-            const imageFile = el('#image-upload').files[0];
-            if (imageFile) {
-                const imageFormData = new FormData();
-                imageFormData.append('file', imageFile);
-                imageFormData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-                try {
-                    const res = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: imageFormData });
-                    if (!res.ok) throw new Error('Cloudinary upload failed.');
-                    const imageData = await res.json();
-                    data.image_url = imageData.secure_url;
-                } catch (error) {
-                    showStatus(error.message, true);
-                    return;
-                }
-            }
+    function editItem(id) {
+      const it = ALL_ITEMS.find(i => i.id === id);
+      if (it) openModal('edit', it);
+    }
 
-            try {
-                const response = await fetch(`${API_BASE}/admin_upsert_item`, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${ADMIN_SECRET}`
-                    },
-                    body: JSON.stringify(data)
-                });
-                if (!response.ok) throw new Error('API request failed.');
-                showStatus('Item saved successfully!');
-                closeModal();
-                fetchMenu();
-            } catch (error) {
-                showStatus(error.message, true);
-            }
-        });
-    </script>
+    // Toggle availability (loads, modifies, saves the item)
+    async function toggleAvailability(id) {
+      const it = ALL_ITEMS.find(i => i.id === id);
+      if (!it) return;
+      const payload = { ...it, is_available: !it.is_available };
+      try {
+        const r = await fetch(`${API_BASE}/admin_upsert_item`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...authHeader() },
+          body: JSON.stringify(payload)
+        });
+        if (!r.ok) throw new Error('Failed to toggle availability');
+        toast('Item availability updated');
+        fetchMenu();
+      } catch (e) {
+        toast(e.message, false);
+      }
+    }
 
+    async function deleteItem(id) {
+      if (!confirm('Delete this item?')) return;
+      try {
+        const r = await fetch(`${API_BASE}/admin_delete_item?id=${id}`, {
+          method: 'POST',
+          headers: { ...authHeader() }
+        });
+        if (!r.ok) throw new Error('Delete failed');
+        toast('Item deleted');
+        fetchMenu();
+      } catch (e) {
+        toast(e.message, false);
+      }
+    }
+
+    // Save item (create/update)
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const data = {
+        id: fd.get('id') ? Number(fd.get('id')) : undefined,
+        category_id: Number(fd.get('category_id')),
+        name: String(fd.get('name')||'').trim(),
+        description: String(fd.get('description')||'').trim() || null,
+        price_cents: Math.round(Number(fd.get('price_cents')||0) * 100),
+        veg: fd.get('veg') === 'on',
+        spice_level: Number(fd.get('spice_level')||0),
+        is_available: fd.get('is_available') === 'on',
+        is_special: fd.get('is_special') === 'on',
+        image_url: fd.get('image_url') || null,
+        sort_order: 100
+      };
+      if (!data.name || !data.category_id || !(data.price_cents >= 0)) { toast('Fill name, category, and price', false); return; }
+
+      // Optional Cloudinary upload
+      const file = el('#image-upload').files[0];
+      if (file && needCloudinary()) {
+        try {
+          const cd = new FormData();
+          cd.append('file', file);
+          cd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+          const up = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: cd });
+          if (!up.ok) throw new Error('Cloudinary upload failed');
+          const j = await up.json();
+          data.image_url = j.secure_url;
+        } catch (e) {
+          toast(e.message, false);
+          return;
+        }
+      }
+
+      try {
+        const r = await fetch(`${API_BASE}/admin_upsert_item`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...authHeader() },
+          body: JSON.stringify(data)
+        });
+        if (!r.ok) throw new Error('Save failed — check required fields and ADMIN_SECRET');
+        toast('Item saved');
+        closeModal();
+        fetchMenu();
+      } catch (e) {
+        toast(e.message, false);
+      }
+    });
+
+    // Refresh button
+    el('#btn-refresh')?.addEventListener('click', fetchMenu);
+  </script>
 </body>
 </html>
