@@ -1,1 +1,39 @@
 .
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vindaloo Owner Portal</title>
+</head>
+<body>
+    <h1>Vindaloo Owner Portal</h1>
+    
+    <div id="login-form">
+        <input type="password" id="admin-secret-input" placeholder="Enter ADMIN_SECRET">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="admin-content" style="display:none;">
+        <p>Admin content will appear here after login.</p>
+    </div>
+
+    <script>
+        const API_BASE = 'https://api.vindaloo.nikagenyx.com/.netlify/functions';
+        const API = {
+            menu: `${API_BASE}/get_menu`,
+            upsertItem: `${API_BASE}/admin_upsert_item`
+            // ... add other API endpoints
+        };
+
+        function login() {
+            const secret = document.getElementById('admin-secret-input').value;
+            if (secret) {
+                localStorage.setItem('ADMIN_SECRET', secret);
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                // Here, you would load the admin dashboard and functionality
+            }
+        }
+    </script>
+</body>
+</html>
