@@ -129,4 +129,346 @@
           </div>
         </article>
       </div>
-      <p class="text-xs text-gray-500 mt-6">Prices in
+      <p class="text-xs text-gray-500 mt-6">Prices include GST if applicable. Some items may sell out early. Ask the team for recommendations.</p>
+    </div>
+  </section>
+
+  <!-- Order / Reserve -->
+  <section id="order" class="wine-soft py-14">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-start">
+      <div class="bg-white rounded-xl p-6 shadow-sm">
+        <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Order on WhatsApp</h3>
+        <p class="text-gray-600 text-sm">Fill what you can; we prefill a WhatsApp message with your order.</p>
+        <form id="order-form" class="mt-4 grid grid-cols-2 gap-3">
+          <input name="name" placeholder="Your name" class="col-span-2 border rounded-md px-3 py-2"/>
+          <input name="items" placeholder="Items & qty (e.g., Vindaloo x2)" class="col-span-2 border rounded-md px-3 py-2"/>
+          <input name="pickup" type="datetime-local" class="col-span-2 sm:col-span-1 border rounded-md px-3 py-2"/>
+          <select name="pay" class="col-span-2 sm:col-span-1 border rounded-md px-3 py-2">
+            <option value="UPI">UPI</option>
+            <option value="Cash">Cash</option>
+          </select>
+          <textarea name="notes" placeholder="Notes (no onions, extra spice)" class="col-span-2 border rounded-md px-3 py-2"></textarea>
+          <button class="col-span-2 bg-wine text-white px-4 py-2 rounded-md">Open WhatsApp</button>
+        </form>
+        <p class="text-xs text-gray-500 mt-2">We’ll confirm availability and pickup time on WhatsApp.</p>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 shadow-sm">
+        <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Reserve a Table</h3>
+        <form id="reserve-form" class="mt-4 grid grid-cols-2 gap-3">
+          <input name="name" placeholder="Your name" class="col-span-2 border rounded-md px-3 py-2"/>
+          <input name="date" type="date" class="border rounded-md px-3 py-2"/>
+          <input name="time" type="time" class="border rounded-md px-3 py-2"/>
+          <input name="pax" type="number" min="1" placeholder="Guests" class="col-span-2 sm:col-span-1 border rounded-md px-3 py-2"/>
+          <input name="phone" type="tel" placeholder="Phone" class="col-span-2 sm:col-span-1 border rounded-md px-3 py-2"/>
+          <button class="col-span-2 bg-black text-white px-4 py-2 rounded-md">WhatsApp Request</button>
+        </form>
+        <div class="mt-4 text-sm text-gray-600">Walk-ins welcome. For parties of 8+, please use Catering below.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catering -->
+  <section id="catering" class="bg-white py-14">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-start">
+      <div>
+        <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Catering & Party Orders</h3>
+        <p class="text-gray-600">Tell us your headcount and budget. We’ll propose a menu that travels well and serves hot.</p>
+        <ul class="mt-4 list-disc list-inside text-sm text-gray-700">
+          <li>Per-head packages</li>
+          <li>Live counter options (if space permits)</li>
+          <li>Veg/Non-veg split menus</li>
+        </ul>
+      </div>
+      <div class="tile rounded-xl p-6">
+        <form id="catering-form" class="grid grid-cols-2 gap-3">
+          <input name="name" placeholder="Your name" class="col-span-2 border rounded-md px-3 py-2"/>
+          <input name="date" type="date" class="border rounded-md px-3 py-2"/>
+          <input name="pax" type="number" min="10" placeholder="Guests (min 10)" class="border rounded-md px-3 py-2"/>
+          <select name="budget" class="col-span-2 border rounded-md px-3 py-2">
+            <option value="">Budget per head</option>
+            <option>₹300–₹500</option>
+            <option>₹500–₹800</option>
+            <option>₹800–₹1200</option>
+            <option>Custom</option>
+          </select>
+          <textarea name="notes" placeholder="Cuisine preferences, venue, timing" class="col-span-2 border rounded-md px-3 py-2"></textarea>
+          <button class="col-span-2 bg-wine text-white px-4 py-2 rounded-md">WhatsApp Enquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="wine-soft py-14">
+    <div class="max-w-6xl mx-auto px-4">
+      <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Gallery</h3>
+      <div class="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <img src="/assets/gallery-1.jpg" alt="Dish 1" class="rounded-lg object-cover w-full h-44"/>
+        <img src="/assets/gallery-2.jpg" alt="Dish 2" class="rounded-lg object-cover w-full h-44"/>
+        <img src="/assets/gallery-3.jpg" alt="Dish 3" class="rounded-lg object-cover w-full h-44"/>
+        <img src="/assets/gallery-4.jpg" alt="Dish 4" class="rounded-lg object-cover w-full h-44"/>
+      </div>
+      <p class="text-xs text-gray-600 mt-3">Replace images in <code>/assets/</code>. We can wire Instagram later.</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="bg-white py-14">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 items-start">
+      <div class="md:col-span-2">
+        <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Visit us</h3>
+        <p class="text-gray-700 mt-2">Vindaloo Restaurant, Your Street, Your City</p>
+        <p class="text-gray-600 text-sm">Open daily: 12:00–15:30, 18:30–22:30</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href="https://maps.google.com/?q=Vindaloo%20Restaurant" target="_blank" class="border px-4 py-2 rounded-md">Open in Maps</a>
+          <a href="tel:+91XXXXXXXXXX" class="bg-black text-white px-4 py-2 rounded-md">Call</a>
+          <a id="wa-shortcut" href="#order" class="bg-wine text-white px-4 py-2 rounded-md">WhatsApp</a>
+        </div>
+        <div class="mt-6 text-sm text-gray-700">
+          <div>UPI ID: <span id="upi-id">vindaloo@okaxis</span></div>
+          <img src="/assets/upi-qr.png" alt="UPI QR" class="mt-2 h-36 w-36 border rounded"/>
+        </div>
+      </div>
+      <aside class="tile rounded-xl p-6">
+        <h4 class="font-semibold mb-2">Notes for launch</h4>
+        <ul class="text-sm list-disc list-inside text-gray-700 space-y-1">
+          <li>Edit phone numbers and UPI ID.</li>
+          <li>Replace images in <code>/assets</code>.</li>
+          <li>Add more dishes via the Owner Portal.</li>
+          <li>Hook forms to Netlify or keep WhatsApp-only for now.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="bg-black text-white/90">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm flex flex-wrap items-center justify-between gap-4">
+      <div>© <span id="year"></span> Vindaloo Restaurant. All rights reserved.</div>
+      <div class="text-white/70">Crafted for speed, clarity, and great food.</div>
+    </div>
+  </footer>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Vindaloo Restaurant",
+    "servesCuisine": ["Goan","Indian"],
+    "telephone": "+91XXXXXXXXXX",
+    "address": {"@type":"PostalAddress","streetAddress":"Your Street","addressLocality":"Your City","addressRegion":"Your State","postalCode":"000000","addressCountry":"IN"},
+    "openingHoursSpecification": [
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"12:00","closes":"22:30"}
+    ],
+    "paymentAccepted": ["Cash","UPI"],
+    "url": "https://vindaloo.nikagenyx.com"
+  }
+  </script>
+
+  <script>
+  // ====== Config ======
+  const WA_PHONE = '91XXXXXXXXXX'; // TODO: replace
+  const API_BASE = 'https://api.vindaloo.nikagenyx.com/.netlify/functions';
+  const MENU_ENDPOINT = `${API_BASE}/get_menu`;
+  const SPECIALS_ENDPOINT = `${API_BASE}/get_menu?specials=1`;
+
+  // ====== Utils ======
+  const Rs = n => `₹${Number(n).toFixed(0)}`;
+  const el = s => document.querySelector(s);
+  const els = s => Array.from(document.querySelectorAll(s));
+  const cacheSet = (k, v) => localStorage.setItem(k, JSON.stringify({at:Date.now(), v}));
+  const cacheGet = (k, maxAgeMs=3600_000) => {
+    try{
+      const raw = JSON.parse(localStorage.getItem(k)||'null');
+      if (!raw) return null;
+      if (Date.now()-raw.at > maxAgeMs) return null;
+      return raw.v;
+    }catch(_){ return null; }
+  };
+  function withTimeout(promise, ms=8000){
+    const ctl = new AbortController();
+    const t = setTimeout(()=>ctl.abort('timeout'), ms);
+    return Promise.race([
+      promise({signal: ctl.signal}),
+      new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')), ms))
+    ]).finally(()=>clearTimeout(t));
+  }
+
+  // Footer year
+  el('#year').textContent = new Date().getFullYear();
+
+  // ====== Specials ======
+  (async function renderSpecials(){
+    const list = el('#specials');
+    try {
+      const r = await fetch(SPECIALS_ENDPOINT, {cache:'no-store'});
+      if (!r.ok) throw new Error('HTTP '+r.status);
+      const data = await r.json();
+      const items = (data.categories||[]).flatMap(c => c.items||[]);
+      list.innerHTML = items.length
+        ? items.slice(0,6).map(i =>
+            `<li class="flex items-center justify-between bg-white rounded-lg px-3 py-2">
+               <span>${i.name}</span><span class="text-gray-700">${Rs((i.price_cents||0)/100)}</span>
+             </li>`).join('')
+        : '<li class="text-gray-600">No specials today.</li>';
+    } catch (e) {
+      console.warn('Specials fetch failed', e);
+      list.innerHTML = '<li class="text-gray-600">Could not load specials.</li>';
+    }
+  })();
+
+  // ====== Menu ======
+  let MENU = { categories: [] };
+
+  async function loadMenu() {
+    // Try network first
+    try {
+      const r = await fetch(MENU_ENDPOINT, {cache:'no-store'});
+      if (!r.ok) throw new Error('HTTP '+r.status);
+      const data = await r.json();
+      MENU = normalizeMenu(data);
+      cacheSet('menuCache', MENU);
+      renderMenu();
+    } catch (e) {
+      // Fallback to cache if available
+      const cached = cacheGet('menuCache', 12*3600_000); // 12h
+      if (cached){
+        MENU = cached;
+        renderMenu();
+        console.warn('Using cached menu due to error:', e.message||e);
+      } else {
+        el('#menu-grid').innerHTML = '<p class="text-gray-500">Could not load menu. Please try again later.</p>';
+      }
+    }
+  }
+
+  function normalizeMenu(data){
+    // Ensure consistent shape & defaults
+    const out = { categories: [] };
+    for (const c of (data.categories||[])) {
+      const items = (c.items||[]).map(it => ({
+        id: it.id,
+        name: it.name,
+        description: it.description || '',
+        price_cents: Number(it.price_cents||0),
+        veg: !!it.veg,
+        spice_level: Number(it.spice_level||0),
+        image_url: it.image_url || '',
+        is_available: it.is_available !== false, // default true
+        is_special: !!it.is_special
+      }));
+      out.categories.push({ id:c.id, name:c.name, sort_order:c.sort_order||100, items });
+    }
+    return out;
+  }
+
+  function card(title, items){
+    return `
+      <article class="border rounded-xl p-4 bg-white shadow-sm">
+        <h4 class="font-semibold mb-3">${title}</h4>
+        <ul class="space-y-3">
+          ${items.map(it => {
+            const sold = !it.is_available;
+            return `
+            <li class="flex items-center justify-between text-sm ${sold ? 'soldout' : ''}"
+                data-veg="${it.veg}" data-spice="${it.spice_level}" data-available="${it.is_available}">
+              <div class="flex items-center gap-3">
+                ${it.image_url ? `<img src="${it.image_url}" alt="${it.name}" class="img-thumb" loading="lazy">` : ''}
+                <div>
+                  <div>
+                    <span class="${it.veg ? 'veg' : 'nonveg'}"></span>
+                    <span class="font-medium">${it.name}</span>
+                    ${it.spice_level ? `<span class="tag spice-${it.spice_level}">Spice</span>` : ''}
+                    ${it.is_special ? `<span class="tag">Special</span>` : ''}
+                    ${sold ? `<span class="tag">Sold out</span>` : ''}
+                  </div>
+                  ${it.description ? `<div class="text-xs text-gray-600 mt-0.5">${it.description}</div>` : ''}
+                </div>
+              </div>
+              <div class="font-semibold">${Rs(it.price_cents/100)}</div>
+            </li>`;
+          }).join('')}
+        </ul>
+      </article>`;
+  }
+
+  function renderMenu(){
+    const grid = el('#menu-grid');
+    grid.innerHTML = MENU.categories.map(c => card(c.name, c.items || [])).join('');
+    bindFilters();
+  }
+
+  function bindFilters(){
+    const search = el('#search');
+    const veg = el('#only-veg');
+    const spice = el('#spice');
+    const showSold = el('#show-soldout');
+
+    const apply = () => {
+      els('#menu-grid li').forEach(li => {
+        const text = li.textContent.toLowerCase();
+        const isVeg = li.getAttribute('data-veg') === 'true';
+        const spiceLevel = li.getAttribute('data-spice') || '';
+        const available = li.getAttribute('data-available') === 'true';
+
+        let show = true;
+        if (search.value) show = text.includes(search.value.toLowerCase());
+        if (show && veg.checked) show = isVeg;
+        if (show && spice.value) show = String(spiceLevel) === String(spice.value);
+        if (show && !showSold.checked) show = available;
+
+        li.style.display = show ? '' : 'none';
+      });
+    };
+    [search, veg, spice, showSold].forEach(x => x.addEventListener('input', apply));
+    // Apply once after first render
+    apply();
+  }
+
+  // ====== WhatsApp forms ======
+  function waLink(msg){ return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`; }
+
+  el('#order-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const m = [
+      '*Order Request*',
+      `Name: ${f.get('name')||''}`,
+      `Items: ${f.get('items')||''}`,
+      `Pickup: ${f.get('pickup')||''}`,
+      `Payment: ${f.get('pay')||'UPI'}`,
+      `Notes: ${f.get('notes')||''}`
+    ].join('\n');
+    window.location.href = waLink(m);
+  });
+
+  el('#reserve-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const m = [
+      '*Table Reservation*',
+      `Name: ${f.get('name')||''}`,
+      `Date: ${f.get('date')||''}`,
+      `Time: ${f.get('time')||''}`,
+      `Guests: ${f.get('pax')||''}`,
+      `Phone: ${f.get('phone')||''}`
+    ].join('\n');
+    window.location.href = waLink(m);
+  });
+
+  el('#wa-shortcut').addEventListener('click', e => {
+    e.preventDefault();
+    window.location.href = waLink('Hello, I would like to place an order / make a reservation.');
+  });
+
+  // ====== Boot ======
+  loadMenu();
+
+  // Optional: add a service worker later to cache static assets
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker.register('/sw.js');
+  // }
+  </script>
+</body>
+</html>
