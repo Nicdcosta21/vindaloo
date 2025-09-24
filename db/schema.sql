@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS categories (
   id           SERIAL PRIMARY KEY,
-  name         VARCHAR(255) NOT NULL,
+  name         VARCHAR(255) UNIQUE NOT NULL,
   sort_order   INT          NOT NULL,
   created_at   TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at   TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
@@ -20,12 +20,4 @@ CREATE TABLE IF NOT EXISTS items (
   sort_order    INT          NOT NULL,
   created_at    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS categories (
-  id           SERIAL PRIMARY KEY,
-  name         VARCHAR(255) UNIQUE NOT NULL, -- Add UNIQUE here
-  sort_order   INT          NOT NULL,
-  created_at   TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-  updated_at   TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
