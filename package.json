@@ -1,9 +1,8 @@
 {
-  "name": "vindaloo-backend",
+  "name": "vindaloo",
   "private": true,
   "type": "module",
   "dependencies": {
-    "pg": "^8.11.5",
-    "cloudinary": "^1.41.3"
+    "pg": "^8.11.5"
   }
 }
