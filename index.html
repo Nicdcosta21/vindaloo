@@ -61,7 +61,6 @@
       <nav class="flex items-center gap-6 text-sm" aria-label="Primary">
         <a href="#menu" class="hover:underline">Menu</a>
         <a href="#order" class="hover:underline">Order / Reserve</a>
-        <a href="#catering" class="hover:underline nav-hide">Catering</a>
         <a href="#contact" class="hover:underline">Contact</a>
         <a href="tel:+918999338456" class="ml-2 bg-white text-black px-3 py-1.5 rounded-md font-medium">Call</a>
       </nav>
@@ -179,53 +178,8 @@
           <input name="phone" type="tel" placeholder="Phone" class="col-span-2 sm:col-span-1 border rounded-md px-3 py-2"/>
           <button class="col-span-2 bg-black text-white px-4 py-2 rounded-md">WhatsApp Request</button>
         </form>
-        <div class="mt-4 text-sm text-gray-600">Walk-ins welcome. For parties of 8+, please use Catering below.</div>
+        <div class="mt-4 text-sm text-gray-600">Walk-ins welcome. For groups of 8+, please call or WhatsApp.</div>
       </div>
-    </div>
-  </section>
-
-  <!-- Catering -->
-  <section id="catering" class="bg-white py-14">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-start">
-      <div>
-        <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Catering & Party Orders</h3>
-        <p class="text-gray-600">Tell us your headcount and budget. We’ll propose a menu that travels well and serves hot.</p>
-        <ul class="mt-4 list-disc list-inside text-sm text-gray-700">
-          <li>Per-head packages</li>
-          <li>Live counter options (if space permits)</li>
-          <li>Veg/Non-veg split menus</li>
-        </ul>
-      </div>
-      <div class="tile rounded-xl p-6">
-        <form id="catering-form" class="grid grid-cols-2 gap-3">
-          <input name="name" placeholder="Your name" class="col-span-2 border rounded-md px-3 py-2"/>
-          <input name="date" type="date" class="border rounded-md px-3 py-2"/>
-          <input name="pax" type="number" min="10" placeholder="Guests (min 10)" class="border rounded-md px-3 py-2"/>
-          <select name="budget" class="col-span-2 border rounded-md px-3 py-2">
-            <option value="">Budget per head</option>
-            <option>₹300–₹500</option>
-            <option>₹500–₹800</option>
-            <option>₹800–₹1200</option>
-            <option>Custom</option>
-          </select>
-          <textarea name="notes" placeholder="Cuisine preferences, venue, timing" class="col-span-2 border rounded-md px-3 py-2"></textarea>
-          <button class="col-span-2 bg-wine text-white px-4 py-2 rounded-md">WhatsApp Enquiry</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery" class="wine-soft py-14">
-    <div class="max-w-6xl mx-auto px-4">
-      <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Gallery</h3>
-      <div class="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        <img src="/assets/gallery-1.jpg" alt="Kerala Nadan dish 1" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
-        <img src="/assets/gallery-2.jpg" alt="Kerala Nadan dish 2" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
-        <img src="/assets/gallery-3.jpg" alt="Kerala Nadan dish 3" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
-        <img src="/assets/gallery-4.jpg" alt="Kerala Nadan dish 4" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
-      </div>
-      <p class="text-xs text-gray-600 mt-3">Replace images in <code>/assets/</code>. We can wire Instagram later.</p>
     </div>
   </section>
 
