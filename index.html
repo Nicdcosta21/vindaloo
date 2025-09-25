@@ -3,14 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vindaloo Restaurant — Honest Kerala Nadan Flavours</title>
-  <meta name="description" content="Vindaloo Restaurant — Kerala Nadan comfort food, honest heat, made fresh daily. Order on WhatsApp, reserve a table, or enquire for catering." />
-  <link rel="icon" href="/assets/hero-vindaloo.jpg" />
+  <title>Vindaloo Restaurant — Nadan Kerala Flavours</title>
+  <meta name="description" content="Vindaloo Restaurant — Kerala Nadan comfort food, made fresh daily. Order on WhatsApp." />
+  <link rel="canonical" href="https://vindaloo.nikagenyx.com/">
+  <meta name="theme-color" content="#5a352c">
+
+  <!-- Icons -->
+  <link rel="icon" href="/assets/vindaloo-favicon.png" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Tailwind (OK for MVP). For production, replace with a built CSS file per: https://tailwindcss.com/docs/installation -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Social share -->
+  <meta property="og:title" content="Vindaloo Restaurant — Nadan Kerala Flavours">
+  <meta property="og:description" content="Kerala Nadan comfort food, made fresh daily. Order on WhatsApp.">
+  <meta property="og:image" content="https://vindaloo.nikagenyx.com/assets/hero-vindaloo.jpg">
+  <meta property="og:type" content="restaurant">
+  <meta name="twitter:card" content="summary_large_image">
 
   <style>
     :root{ --wine:#5a352c; --wine-soft:#f0e6d9; --ink:#1f2937; --leaf:#0e9f6e; --ochre:#cfbba1; }
@@ -42,7 +55,7 @@
   <header class="sticky top-0 z-50 bg-black/60 backdrop-blur text-white">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
       <a href="#home" class="flex items-center gap-3" aria-label="Go to top">
-        <img src="/assets/hero-vindaloo.jpg" alt="Vindaloo Restaurant" class="h-8 w-auto"/>
+        <img src="/assets/vindaloo-logo.png" alt="Vindaloo Restaurant logo" class="h-8 w-auto" decoding="async"/>
         <span class="font-semibold tracking-wide">VINDALOO</span>
       </a>
       <nav class="flex items-center gap-6 text-sm" aria-label="Primary">
@@ -60,9 +73,9 @@
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 py-14">
       <div class="text-white">
         <h1 class="font-[600] leading-tight" style="font-family:'Playfair Display',serif; font-size:clamp(2rem,6vw,3.6rem)">
-          Kerala Nadan comfort. Honest heat. Made daily.
+          Nadan Kerala comfort.
         </h1>
-        <p class="mt-4 text-white/90 max-w-prose">House-made vindaloo paste, slow-cooked gravies, and tawa-fresh breads. No shortcuts, just second helpings.</p>
+        <p class="mt-4 text-white/90 max-w-prose">Family vindaloo paste, slow-cooked gravies, and tawa-fresh breads. No shortcuts, just second helpings.</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a id="cta-order" href="#order" class="bg-white text-black px-5 py-2.5 rounded-lg font-semibold">Order on WhatsApp</a>
           <a href="#menu" class="border border-white/70 px-5 py-2.5 rounded-lg">View Menu</a>
@@ -93,15 +106,15 @@
           <p class="text-gray-600">Clear allergen/spice markers. Search and filters for speed at the counter.</p>
         </div>
         <div class="flex flex-wrap gap-3 items-center">
-          <input id="search" type="search" placeholder="Search dishes" class="border rounded-md px-3 py-2 w-64"/>
-          <label class="flex items-center gap-2 text-sm"><input id="only-veg" type="checkbox"/> Veg only</label>
-          <select id="spice" class="border rounded-md px-3 py-2 text-sm">
+          <input id="search" type="search" placeholder="Search dishes" class="border rounded-md px-3 py-2 w-64" aria-label="Search dishes"/>
+          <label class="flex items-center gap-2 text-sm"><input id="only-veg" type="checkbox" /> Veg only</label>
+          <select id="spice" class="border rounded-md px-3 py-2 text-sm" aria-label="Filter by spice">
             <option value="">Any spice</option>
             <option value="1">Mild</option>
             <option value="2">Medium</option>
             <option value="3">Hot</option>
           </select>
-          <label class="flex items-center gap-2 text-sm"><input id="show-soldout" type="checkbox"/> Show sold out</label>
+          <label class="flex items-center gap-2 text-sm"><input id="show-soldout" type="checkbox" /> Show sold out</label>
         </div>
       </div>
 
@@ -207,10 +220,10 @@
     <div class="max-w-6xl mx-auto px-4">
       <h3 class="text-xl font-semibold" style="font-family:'Playfair Display',serif">Gallery</h3>
       <div class="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        <img src="/assets/gallery-1.jpg" alt="Kerala Nadan dish 1" class="rounded-lg object-cover w-full h-44" loading="lazy"/>
-        <img src="/assets/gallery-2.jpg" alt="Kerala Nadan dish 2" class="rounded-lg object-cover w-full h-44" loading="lazy"/>
-        <img src="/assets/gallery-3.jpg" alt="Kerala Nadan dish 3" class="rounded-lg object-cover w-full h-44" loading="lazy"/>
-        <img src="/assets/gallery-4.jpg" alt="Kerala Nadan dish 4" class="rounded-lg object-cover w-full h-44" loading="lazy"/>
+        <img src="/assets/gallery-1.jpg" alt="Kerala Nadan dish 1" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
+        <img src="/assets/gallery-2.jpg" alt="Kerala Nadan dish 2" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
+        <img src="/assets/gallery-3.jpg" alt="Kerala Nadan dish 3" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
+        <img src="/assets/gallery-4.jpg" alt="Kerala Nadan dish 4" class="rounded-lg object-cover w-full h-44" loading="lazy" decoding="async"/>
       </div>
       <p class="text-xs text-gray-600 mt-3">Replace images in <code>/assets/</code>. We can wire Instagram later.</p>
     </div>
@@ -233,7 +246,6 @@
           <a id="wa-shortcut" href="#order" class="bg-wine text-white px-4 py-2 rounded-md">WhatsApp</a>
         </div>
 
-        <!-- Embedded map moved below buttons for cleaner layout -->
         <div class="mt-6">
           <iframe
             title="Vindaloo Restaurant Map"
@@ -244,7 +256,7 @@
 
         <div class="mt-6 text-sm text-gray-700">
           <div>UPI ID: <span id="upi-id">paytm.s189b07@pty</span></div>
-          <img src="/assets/upi-qr.png" alt="UPI QR" class="mt-2 h-36 w-36 border rounded" loading="lazy"/>
+          <img src="/assets/upi-qr.png" alt="UPI QR" class="mt-2 h-36 w-36 border rounded" loading="lazy" decoding="async"/>
         </div>
       </div>
       <aside class="tile rounded-xl p-6">
@@ -295,7 +307,7 @@
 
   <script>
   // ====== Config ======
-  const WA_PHONE = '918999338456'; // your WhatsApp number
+  const WA_PHONE = '918999338456'; // WhatsApp number
   const API_BASE = 'https://api.vindaloo.nikagenyx.com/.netlify/functions';
   const MENU_ENDPOINT = `${API_BASE}/get_menu`;
   const SPECIALS_ENDPOINT = `${API_BASE}/get_menu?specials=1`;
@@ -390,10 +402,10 @@
             <li class="flex items-center justify-between text-sm ${sold ? 'soldout' : ''}"
                 data-veg="${it.veg}" data-spice="${it.spice_level}" data-available="${it.is_available}">
               <div class="flex items-center gap-3">
-                ${it.image_url ? `<img src="${it.image_url}" alt="${it.name}" class="img-thumb" loading="lazy">` : ''}
+                ${it.image_url ? `<img src="${it.image_url}" alt="${it.name}" class="img-thumb" loading="lazy" decoding="async">` : ''}
                 <div>
                   <div>
-                    <span class="${it.veg ? 'veg' : 'nonveg'}"></span>
+                    <span class="${it.veg ? 'veg' : 'nonveg'}" aria-hidden="true"></span>
                     <span class="font-medium">${it.name}</span>
                     ${it.spice_level ? `<span class="tag spice-${it.spice_level}">Spice</span>` : ''}
                     ${it.is_special ? `<span class="tag">Special</span>` : ''}
@@ -485,5 +497,11 @@
   //   navigator.serviceWorker.register('/sw.js');
   // }
   </script>
+
+  <noscript>
+    <div style="background:#fff3cd;color:#664d03;padding:1rem;margin:1rem;border-radius:.5rem">
+      JavaScript is required to load the dynamic menu. Please enable JavaScript or call +91 89993 38456 for today’s specials.
+    </div>
+  </noscript>
 </body>
 </html>
