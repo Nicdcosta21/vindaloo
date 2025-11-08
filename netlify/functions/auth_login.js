@@ -1,15 +1,45 @@
 // netlify/functions/auth_login.js
 import jwt from "jsonwebtoken";
 
+const allowedOrigins = [
+  "https://pos.vindaloo.nikagenyx.com",
+  "https://vindaloo.nikagenyx.com",
+  "http://localhost:8888" // optional for local testing
+];
+
+// ✅ Dynamic CORS handler
+function cors(event) {
+  const origin = event?.headers?.origin || "";
+  const allowOrigin = allowedOrigins.includes(origin)
+    ? origin
+    : allowedOrigins[0];
+  return {
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+  };
+}
+
+// ✅ Unified response helper
+function respond(code, body, event) {
+  return {
+    statusCode: code,
+    headers: { "Content-Type": "application/json", ...cors(event) },
+    body: JSON.stringify(body),
+  };
+}
+
+// ✅ Main handler
 export const handler = async (event) => {
+  // Handle CORS preflight
   if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 204, headers: cors() };
+    return { statusCode: 204, headers: cors(event) };
   }
 
   try {
     const { username, pin } = JSON.parse(event.body || "{}");
     if (!username || !pin) {
-      return respond(400, { error: "username and pin required" });
+      return respond(400, { error: "username and pin required" }, event);
     }
 
     // --- DEV-MODE SUPERUSER ---
@@ -19,29 +49,12 @@ export const handler = async (event) => {
         process.env.JWT_SECRET || "dev_secret",
         { expiresIn: "12h" }
       );
-      return respond(200, { ok: true, token, role: "super_admin" });
+      return respond(200, { ok: true, token, role: "super_admin" }, event);
     }
 
-    // later: query NeonDB for user + bcrypt.compare(pin, hash)
-    return respond(401, { error: "Invalid credentials" });
+    // (Future) Query NeonDB here for real users
+    return respond(401, { error: "Invalid credentials" }, event);
   } catch (err) {
-    return respond(500, { error: err.message });
+    return respond(500, { error: err.message }, event);
   }
 };
-
-function cors() {
-  return {
-    "Access-Control-Allow-Origin":
-      process.env.ALLOW_ORIGIN ||
-      "https://pos.vindaloo.nikagenyx.com",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Access-Control-Allow-Methods": "POST,OPTIONS",
-  };
-}
-function respond(code, body) {
-  return {
-    statusCode: code,
-    headers: { "Content-Type": "application/json", ...cors() },
-    body: JSON.stringify(body),
-  };
-}
