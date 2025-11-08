@@ -110,7 +110,7 @@
         <div>
           <label class="block text-sm font-medium mb-1">Image</label>
           <input type="file" id="image-upload" accept="image/*" class="w-full border rounded-md px-3 py-2">
-          <p class="text-xs text-gray-500 mt-1">Uploads to Cloudinary if configured (see constants below).</p>
+          <p class="text-xs text-gray-500 mt-1">Uploads directly to Google Drive.</p>
         </div>
         <div class="flex justify-end gap-3 pt-2">
           <button type="button" class="btn btn-secondary" data-action="cancel">Cancel</button>
@@ -195,23 +195,27 @@
 
 
     el('#logout-btn').addEventListener('click', () => {
-      localStorage.removeItem('ADMIN_SECRET');
-      setAuthedUI(false);
-      toast('Logged out', true);
-    });
+  localStorage.removeItem('VINDALOO_TOKEN');
+  setAuthedUI(false);
+  toast('Logged out', true);
+});
+;
 
     // Init
     (function boot(){
-      const has = !!localStorage.getItem('ADMIN_SECRET');
-      setAuthedUI(has);
-      if (has) fetchMenu();
-    })();
+  const token = localStorage.getItem('VINDALOO_TOKEN');
+  const has = !!token;
+  setAuthedUI(has);
+  if (has) fetchMenu();
+})();
+
 
     // --- Fetch menu (admin uses the same read endpoint) ---
     async function fetchMenu() {
       try {
         const r = await fetch(`${API_BASE}/get_menu`, { headers: { ...authHeader() } });
-        if (!r.ok) throw new Error(`Fetch failed (${r.status}) — check ADMIN_SECRET and CORS.`);
+        if (!r.ok) throw new Error(`Fetch failed (${r.status}) — check login token and CORS settings.`);
+
         const { categories } = await r.json();
         ALL_CATEGORIES = categories || [];
         ALL_ITEMS = ALL_CATEGORIES.flatMap(c => c.items || []);
