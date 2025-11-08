@@ -39,9 +39,10 @@
     <!-- Login -->
     <div id="login-form" class="max-w-sm mx-auto my-24 admin-card">
       <h2 class="text-xl font-semibold mb-4">Owner Portal Login</h2>
-      <p class="text-gray-600 text-sm mb-4">Enter your <span class="font-mono">ADMIN_SECRET</span> to access the dashboard.</p>
+      <p class="text-gray-600 text-sm mb-4">Enter your <span class="font-mono">6 Digit Secret Pin</span> to access the dashboard.</p>
       <form id="login" class="space-y-3">
-        <input type="password" id="admin-secret-input" placeholder="Enter ADMIN_SECRET" class="w-full border rounded-md px-3 py-2" autocomplete="current-password" required>
+        <input type="username" id="username" placeholder="Enter Username" class="w-full border rounded-md px-3 py-2" autocomplete="current-username" required>
+        <input type="password" id="admin-secret-input" placeholder="Enter 6 Digit Secret Pin" class="w-full border rounded-md px-3 py-2" autocomplete="current-password" required>
         <button class="btn btn-primary w-full">Login</button>
       </form>
     </div>
@@ -61,6 +62,7 @@
         </div>
       </div>
       <div id="menu-display" class="space-y-6"></div>
+      
     </div>
   </main>
 
