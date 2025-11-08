@@ -147,9 +147,11 @@
     }
 
     function authHeader() {
-      const token = localStorage.getItem('ADMIN_SECRET') || '';
-      return token ? { 'Authorization': 'Bearer ' + token } : {};
-    }
+  const t = localStorage.getItem("VINDALOO_TOKEN");
+  return t ? { Authorization: "Bearer " + t } : {};
+}
+
+  
 
     function needCloudinary() {
       return CLOUDINARY_UPLOAD_URL.includes('YOUR_CLOUD_NAME') === false &&
@@ -168,14 +170,29 @@
       el('#btn-new-cat').classList.toggle('hidden', !on);
     }
 
-    el('#login').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const secret = el('#admin-secret-input').value.trim();
-      if (!secret) return;
-      localStorage.setItem('ADMIN_SECRET', secret);
-      setAuthedUI(true);
-      fetchMenu();
+    el("#login").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const username = el("#username").value.trim();
+  const pin = el("#admin-secret-input").value.trim();
+  if (!username || !pin) return toast("Enter username and pin", false);
+
+  try {
+    const r = await fetch(`${API_BASE}/auth_login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, pin }),
     });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || "Login failed");
+
+    localStorage.setItem("VINDALOO_TOKEN", j.token);
+    setAuthedUI(true);
+    fetchMenu();
+  } catch (err) {
+    toast(err.message, false);
+  }
+});
+
 
     el('#logout-btn').addEventListener('click', () => {
       localStorage.removeItem('ADMIN_SECRET');
