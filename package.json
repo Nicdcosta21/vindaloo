@@ -4,6 +4,7 @@
   "type": "module",
   "dependencies": {
     "pg": "^8.11.5",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "googleapis": "^144.0.0"
   }
 }
