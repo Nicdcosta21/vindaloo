@@ -202,12 +202,33 @@
 ;
 
     // Init
-    (function boot(){
-  const token = localStorage.getItem('VINDALOO_TOKEN');
-  const has = !!token;
-  setAuthedUI(has);
-  if (has) fetchMenu();
+    (function boot() {
+  const token = localStorage.getItem("VINDALOO_TOKEN");
+  if (!token) {
+    setAuthedUI(false);
+    return;
+  }
+
+  // --- decode JWT and check expiry ---
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const now = Math.floor(Date.now() / 1000);
+    if (payload.exp && payload.exp < now) {
+      localStorage.removeItem("VINDALOO_TOKEN");
+      setAuthedUI(false);
+      toast("Session expired — please log in again", false);
+      return;
+    }
+  } catch (_) {
+    localStorage.removeItem("VINDALOO_TOKEN");
+    setAuthedUI(false);
+    return;
+  }
+
+  setAuthedUI(true);
+  fetchMenu();
 })();
+
 
 
     // --- Fetch menu (admin uses the same read endpoint) ---
@@ -401,22 +422,24 @@
       };
       if (!data.name || !data.category_id || !(data.price_cents >= 0)) { toast('Fill name, category, and price', false); return; }
 
-      // Optional Cloudinary upload
-      const file = el('#image-upload').files[0];
-      if (file && needCloudinary()) {
-        try {
-          const cd = new FormData();
-          cd.append('file', file);
-          cd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-          const up = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: cd });
-          if (!up.ok) throw new Error('Cloudinary upload failed');
-          const j = await up.json();
-          data.image_url = j.secure_url;
-        } catch (e) {
-          toast(e.message, false);
-          return;
-        }
-      }
+      // --- Google Drive upload (replaces Cloudinary logic) ---
+const file = el('#image-upload').files[0];
+if (file) {
+  try {
+    const up = await fetch(`${API_BASE}/upload_to_drive`, {
+      method: "POST",
+      headers: { ...authHeader() },
+      body: file
+    });
+    if (!up.ok) throw new Error("Drive upload failed");
+    const j = await up.json();
+    data.image_url = j.fileUrl; // returned by backend
+  } catch (e) {
+    toast(e.message, false);
+    return;
+  }
+}
+
 
       try {
         const r = await fetch(`${API_BASE}/admin_upsert_item`, {
